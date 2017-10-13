@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ExpertTypeVCDelegate <NSObject>
+
+- (void)transferExpType:(NSArray *)expTypeArr;
+
+@end
+
 @interface ExpertTypeVC : UIViewController
+
+@property (nonatomic, assign)id<ExpertTypeVCDelegate> delegate;
+
 
 @end

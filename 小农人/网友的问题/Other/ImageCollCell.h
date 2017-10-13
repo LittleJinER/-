@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ImageCollCell : UICollectionViewCell
+
+@property (nonatomic, strong) UIImageView *headImage;
+
 - (void)creatArr:(NSArray *)creatArr indexRow:(int)indexRow;
 
 @end

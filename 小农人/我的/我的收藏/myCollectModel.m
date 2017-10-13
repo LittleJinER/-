@@ -10,4 +10,13 @@
 
 @implementation myCollectModel
 
+
+
+
+
+
+
+
+
+
 @end

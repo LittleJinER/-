@@ -10,4 +10,8 @@
 
 @interface FormulaView : UIView
 
+@property (nonatomic, strong) UIButton *subtractionBtn;
+
+
+
 @end

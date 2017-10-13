@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ContactAddressDelegate <NSObject>
+
+- (void)sendContactAddress:(NSString *)address;
+
+@end
+
+
 @interface ContactAddressVC : UIViewController
+
+@property (nonatomic, assign) id<ContactAddressDelegate> delegate;
+
+
 
 @end

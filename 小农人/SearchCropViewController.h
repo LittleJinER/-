@@ -10,4 +10,7 @@
 
 @interface SearchCropViewController : UIViewController
 
+
+@property (nonatomic, strong)NSString *cropName;
+
 @end

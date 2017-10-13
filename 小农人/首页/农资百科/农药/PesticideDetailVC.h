@@ -10,4 +10,11 @@
 
 @interface PesticideDetailVC : UIViewController
 
+
+
+
+
+
+
+
 @end

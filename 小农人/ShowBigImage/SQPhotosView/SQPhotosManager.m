@@ -47,6 +47,7 @@
         [tempArray addObject:item];
     }
     
+    
     SQPhotosView *photoView = [[SQPhotosView alloc]initWithPhotoItems:tempArray];
     [photoView showViewFromIndex:index];
 }

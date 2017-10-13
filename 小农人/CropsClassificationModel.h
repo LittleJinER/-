@@ -10,4 +10,10 @@
 
 @interface CropsClassificationModel : NSObject
 
+@property (nonatomic, assign) NSInteger follow_count_by_crop;
+@property (nonatomic, assign) NSInteger cid;
+@property (nonatomic, strong) NSString *name;
+
+
+
 @end

@@ -1,0 +1,10 @@
+platform:ios,'8.0'
+target '小农人'do
+
+pod 'MJExtension'
+pod 'AFNetworking'
+pod 'SDWebImage'
+pod 'Masonry'
+pod 'SBJson', '~> 4.0.0'
+
+end 

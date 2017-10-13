@@ -8,6 +8,14 @@
 
 #import "MineViewController.h"
 
+#import "PersonalInformationVC.h"
+#import "MyCollectionVC.h"
+#import "MyConcernVC.h"
+#import "MyAnswerVC.h"
+#import "MyOrderVC.h"
+#import "ServiceAndHelpVC.h"
+#import "SettingUpVC.h"
+
 #define K_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define K_HETGHT [[UIScreen mainScreen] bounds].size.height
 #define DISTANCE_HEIGHT  [UIScreen mainScreen].bounds.size.height/667.0
@@ -19,13 +27,11 @@
 
 @interface MineViewController ()
 
-@property (nonatomic, strong) NSMutableArray *viewClickArr;
-
-
 
 @end
 
 @implementation MineViewController
+
 
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -37,7 +43,8 @@
     
 //    [self.statusBarView removeFromSuperview];
     
-    self.navigationController.automaticallyAdjustsScrollViewInsets = YES;
+//    self.navigationController.automaticallyAdjustsScrollViewInsets = YES;
+//    self.view.alpha = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -45,7 +52,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
-    
+//    self.view.alpha = 1;
     
     //    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
     
@@ -66,21 +73,6 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
 }
-
-
-- (NSMutableArray *)viewClickArr{
-    
-    if (!_viewClickArr) {
-        _viewClickArr = [NSMutableArray arrayWithCapacity:6];
-    }
-    return _viewClickArr;
-    
-}
-
-
-
-
-
 
 
 
@@ -107,6 +99,11 @@
     headImgV.clipsToBounds = YES;
     [self.view addSubview:headImgV];
     
+    headImgV.userInteractionEnabled = YES;
+    [headImgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImageVTapClick:)]];
+    
+    
+    
 //    创建名字label
     UILabel *nameLab = [[UILabel alloc] init];
     nameLab.frame = CGRectMake((K_WIDTH - 100*DISTANCE_WIDTH)/2, CGRectGetMaxY(headImgV.frame)+15*DISTANCE_HEIGHT, 100*DISTANCE_WIDTH, 20*DISTANCE_HEIGHT);
@@ -117,77 +114,77 @@
     [self.view addSubview:nameLab];
     
     
-//    农人币 采纳数 邀请码 留个label的宽度
-    CGFloat sixFWidth = 80*DISTANCE_WIDTH;
-    CGFloat sixFHeight = 15*DISTANCE_HEIGHT;
-//    创建六个label
-    for (int i = 0 ; i < 6; i ++) {
-        UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(K_WIDTH/3*(i%3) + (K_WIDTH/3-sixFWidth)/2 ,CGRectGetMaxY(nameLab.frame)+ 15*DISTANCE_HEIGHT + i/3 * (sixFHeight + 10*DISTANCE_HEIGHT), sixFWidth, sixFHeight);
-        label.textColor = [UIColor whiteColor];
-        label.textAlignment = NSTextAlignmentCenter;
-        
-        [self.view addSubview:label];
-        if (i < 3) {
-            label.font = [UIFont systemFontOfSize:17*DISTANCE_HEIGHT];
-        }else{
-            label.font = [UIFont systemFontOfSize:14*DISTANCE_HEIGHT];
-        }
-        switch (i) {
-            case 0:{
-                label.text = @"12343124";
-                
-                UIView *line = [[UIView alloc] init];
-                line.backgroundColor = [UIColor whiteColor];
-                line.frame = CGRectMake(K_WIDTH/3, CGRectGetMaxY(nameLab.frame) + 22*DISTANCE_HEIGHT, 0.5*DISTANCE_WIDTH, 28*DISTANCE_HEIGHT);
-                [self.view addSubview:line];
-                
-            }
-                
-                break;
-                
-            case 1:{
-                label.text = @"2323223";
-                UIView *line = [[UIView alloc] init];
-                line.backgroundColor = [UIColor whiteColor];
-                line.frame = CGRectMake(K_WIDTH/3 * 2, CGRectGetMaxY(nameLab.frame) + 22*DISTANCE_HEIGHT, 0.5*DISTANCE_WIDTH, 28*DISTANCE_HEIGHT);
-                [self.view addSubview:line];
-            }
-                
-                break;
-                
-            case 2:{
-                label.text = @"343434";
-            }
-                
-                break;
-                
-            case 3:{
-                label.text = @"农人币";
-            }
-                
-                break;
-                
-            case 4:{
-                label.text = @"采纳数";
-            }
-                
-                break;
-                
-            case 5:{
-                label.text = @"邀请码";
-                bgImgHeight = CGRectGetMaxY(label.frame) + 20*DISTANCE_HEIGHT;
-            }
-                
-                break;
-                
-            default:
-                break;
-        }
-        
-        
-    }
-    
+////    农人币 采纳数 邀请码 留个label的宽度
+//    CGFloat sixFWidth = 80*DISTANCE_WIDTH;
+//    CGFloat sixFHeight = 15*DISTANCE_HEIGHT;
+////    创建六个label
+//    for (int i = 0 ; i < 6; i ++) {
+//        UILabel *label = [[UILabel alloc] init];
+//        label.frame = CGRectMake(K_WIDTH/3*(i%3) + (K_WIDTH/3-sixFWidth)/2 ,CGRectGetMaxY(nameLab.frame)+ 15*DISTANCE_HEIGHT + i/3 * (sixFHeight + 10*DISTANCE_HEIGHT), sixFWidth, sixFHeight);
+//        label.textColor = [UIColor whiteColor];
+//        label.textAlignment = NSTextAlignmentCenter;
+//        
+//        [self.view addSubview:label];
+//        if (i < 3) {
+//            label.font = [UIFont systemFontOfSize:17*DISTANCE_HEIGHT];
+//        }else{
+//            label.font = [UIFont systemFontOfSize:14*DISTANCE_HEIGHT];
+//        }
+//        switch (i) {
+//            case 0:{
+//                label.text = @"12343124";
+//                
+//                UIView *line = [[UIView alloc] init];
+//                line.backgroundColor = [UIColor whiteColor];
+//                line.frame = CGRectMake(K_WIDTH/3, CGRectGetMaxY(nameLab.frame) + 22*DISTANCE_HEIGHT, 0.5*DISTANCE_WIDTH, 28*DISTANCE_HEIGHT);
+//                [self.view addSubview:line];
+//                
+//            }
+//                
+//                break;
+//                
+//            case 1:{
+//                label.text = @"2323223";
+//                UIView *line = [[UIView alloc] init];
+//                line.backgroundColor = [UIColor whiteColor];
+//                line.frame = CGRectMake(K_WIDTH/3 * 2, CGRectGetMaxY(nameLab.frame) + 22*DISTANCE_HEIGHT, 0.5*DISTANCE_WIDTH, 28*DISTANCE_HEIGHT);
+//                [self.view addSubview:line];
+//            }
+//                
+//                break;
+//                
+//            case 2:{
+//                label.text = @"343434";
+//            }
+//                
+//                break;
+//                
+//            case 3:{
+//                label.text = @"农人币";
+//            }
+//                
+//                break;
+//                
+//            case 4:{
+//                label.text = @"采纳数";
+//            }
+//                
+//                break;
+//                
+//            case 5:{
+//                label.text = @"邀请码";
+//                bgImgHeight = CGRectGetMaxY(label.frame) + 20*DISTANCE_HEIGHT;
+//            }
+//                
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//        
+//        
+//    }
+    bgImgHeight = CGRectGetMaxY(nameLab.frame) + 20*DISTANCE_HEIGHT;
     
     
     
@@ -205,8 +202,6 @@
         collecView.frame = CGRectMake(K_WIDTH/2 * j, CGRectGetMaxY(bgImgV.frame), collecWidth, collectHeight);
         collecView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:collecView];
-        
-        [self.viewClickArr addObject:collecView];
         
         collecView.tag = 10000 + j;
         collecView.userInteractionEnabled = YES;
@@ -279,8 +274,6 @@
         [fourView addSubview:label];
         [self.view addSubview:fourView];
         
-        [self.viewClickArr addObject:fourView];
-        
         fourView.tag = 10002 + k;
         fourView.userInteractionEnabled = YES;
        
@@ -315,10 +308,10 @@
             fourView.frame = CGRectMake(0, originHeight + 2*15*DISTANCE_HEIGHT+4*lineHeight+2*fourVHeight + (k-2)*(fourVHeight+2*lineHeight + 15*DISTANCE_HEIGHT), K_WIDTH, fourVHeight);
             if (k == 2) {
                 img.image = [UIImage imageNamed:@"my_recipe"];
-                label.text = @"我的农人币";
+                label.text = @"客服与帮助";
             }else{
                 img.image = [UIImage imageNamed:@"invite_code"];
-                label.text = @"填写邀请码";
+                label.text = @"设置";
                 
             }
         }
@@ -349,31 +342,46 @@
         case 0:
         {
             NSLog(@"    0000000   %ld",teger);
+            MyCollectionVC *collectVC = [[MyCollectionVC alloc] init];
+             [self.navigationController pushViewController:collectVC animated:YES];
         }
             break;
         case 1:
         {
             NSLog(@"    1111111   %ld",teger);
+            
+            MyConcernVC *concerVC = [[MyConcernVC alloc] init];
+            
+            [self.navigationController pushViewController:concerVC animated:YES];
+            
         }
             break;
         case 2:
         {
             NSLog(@"    222222222   %ld",teger);
+            MyAnswerVC *answerVC = [[MyAnswerVC alloc] init];
+             [self.navigationController pushViewController:answerVC animated:YES];
         }
             break;
         case 3:
         {
             NSLog(@"    333333333333   %ld",teger);
+            MyOrderVC *orderVC = [[MyOrderVC alloc] init];
+             [self.navigationController pushViewController:orderVC animated:YES];
         }
             break;
         case 4:
         {
             NSLog(@"    44444444444   %ld",teger);
+            ServiceAndHelpVC *serviceVC = [[ServiceAndHelpVC alloc] init];
+             [self.navigationController pushViewController:serviceVC animated:YES];
         }
             break;
         case 5:
         {
             NSLog(@"    5555555555   %ld",teger);
+            SettingUpVC *setVC = [[SettingUpVC alloc] init];
+             [self.navigationController pushViewController:setVC animated:YES];
         }
             break;
             
@@ -382,18 +390,19 @@
     }
     
     
+}
+
+
+- (void)headImageVTapClick:(UITapGestureRecognizer *)recognizer{
     
+    NSLog(@"headImageV被点击了");
     
-    
-    
-    
+    PersonalInformationVC *personInfoVC = [[PersonalInformationVC alloc] init];
+    [self.navigationController pushViewController:personInfoVC animated:YES];
     
     
     
 }
-
-
-
 
 
 

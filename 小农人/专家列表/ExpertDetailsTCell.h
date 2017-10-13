@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class ExpertDViewModel;
+
 @interface ExpertDetailsTCell : UITableViewCell
+
+
+
+
+@property (strong, nonatomic) ExpertDViewModel *eVm;
+
+@property (weak,nonatomic)UIButton *replyButton;
+
+@property (weak,nonatomic)UIButton *answerButton;
+
+
+
+- (void)setCellWithEvm:(ExpertDViewModel *)eVm;
 
 @end

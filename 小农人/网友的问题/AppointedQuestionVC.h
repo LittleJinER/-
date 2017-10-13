@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QuestionModel.h"
 
 @interface AppointedQuestionVC : UIViewController
+
+@property (assign, nonatomic)NSInteger post_id;
+@property (nonatomic, strong)QuestionModel *headModel;
 
 @end

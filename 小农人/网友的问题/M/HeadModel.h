@@ -7,16 +7,33 @@
 //
 
 #import "BasicModel.h"
+#import "AuthorInfoModel.h"
+
+
 
 @interface HeadModel : BasicModel
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *time;
 @property (nonatomic, copy) NSString *head;
-@property (nonatomic, strong) NSArray *image;
+@property (nonatomic, strong) NSMutableArray *image;
 @property (nonatomic, assign)NSInteger oppose;
 @property (nonatomic, assign)NSInteger approve;
 @property (nonatomic, copy)NSString *authentication;
 @property (nonatomic, copy)NSString *comment;
+
+
+
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) AuthorInfoModel *author_info;
+
+
+
+
+
+
+
+
+
 
 @end

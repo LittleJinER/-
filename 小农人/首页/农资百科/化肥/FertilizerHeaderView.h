@@ -10,4 +10,6 @@
 
 @interface FertilizerHeaderView : UICollectionReusableView
 
+@property (nonatomic, copy) NSString *title;
+
 @end

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SABookModel.h"
+
+
 @interface ConcernTVCell : UITableViewCell
+
+@property (nonatomic, strong) SABookModel *bookModel;
+
+@property (nonatomic, strong) UIButton *questionBtn;
 
 @end

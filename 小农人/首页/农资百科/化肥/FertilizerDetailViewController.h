@@ -10,4 +10,11 @@
 
 @interface FertilizerDetailViewController : UIViewController
 
+@property (nonatomic, assign) NSInteger aid;
+@property (nonatomic, copy) NSString *titleName;
+
+
+//自定义colorID
+@property (nonatomic, assign) NSInteger colorID;
+
 @end

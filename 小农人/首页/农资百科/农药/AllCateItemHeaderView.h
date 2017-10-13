@@ -10,4 +10,6 @@
 
 @interface AllCateItemHeaderView : UICollectionReusableView
 
+@property (nonatomic, copy) NSString *title;
+
 @end

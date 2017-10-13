@@ -10,4 +10,7 @@
 
 @interface MiniClassModel : NSObject
 
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) NSInteger article_id;
+
 @end

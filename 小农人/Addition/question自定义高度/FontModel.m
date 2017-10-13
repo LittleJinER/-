@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-CGFloat const titleFont = 18.00;
+CGFloat const titleFont = 17.00;
 
 CGFloat const authorFont = 15.00;
 

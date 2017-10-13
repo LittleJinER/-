@@ -10,4 +10,12 @@
 
 @interface FertilizerLCViewController : UIViewController
 
+@property (nonatomic, assign) NSInteger bigCid;
+@property (nonatomic, assign) NSInteger litCid;
+@property (nonatomic, copy) NSString *titleName;
+
+//搜索
+@property (nonatomic, assign) NSInteger search_cid;
+@property (nonatomic, copy) NSString *keyWords;
+
 @end

@@ -10,4 +10,7 @@
 
 @interface BaiKeMiniClassModel : NSObject
 
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSString *value;
+
 @end

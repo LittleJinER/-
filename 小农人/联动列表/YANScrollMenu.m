@@ -166,18 +166,20 @@
 #pragma mark - Customize
 - (void)customizeItemWithObject:(id<YANMenuObject>)object{
     
+    
+    
     if (object == nil) return;
     
-    self.label.text = object.text;
+    self.label.text = object.weiba_name;
     
-    if ([object.image isKindOfClass:[NSString class]]) {
-        
-        NSURL *url = [NSURL URLWithString:(NSString *)object.image];
+    if ([object.logo_url isKindOfClass:[NSString class]]) {
+//        NSLog(@"    gggg   %@",object.logo_url);
+        NSURL *url = [NSURL URLWithString:(NSString *)object.logo_url];
         [self.icon sd_setImageWithURL:url placeholderImage:object.placeholderImage];
         
     }else if ([object.image isKindOfClass:[NSURL class]]){
         
-        [self.icon sd_setImageWithURL:(NSURL *)object.image placeholderImage:object.placeholderImage];
+        [self.icon sd_setImageWithURL:(NSURL *)object.logo_url placeholderImage:object.placeholderImage];
         
     }else if ([object.image isKindOfClass:[UIImage class]]){
         

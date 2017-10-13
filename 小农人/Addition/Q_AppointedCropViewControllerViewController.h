@@ -10,4 +10,8 @@
 
 @interface Q_AppointedCropViewControllerViewController : UIViewController
 
+
+@property (nonatomic, strong)NSString *cropName;
+
+
 @end

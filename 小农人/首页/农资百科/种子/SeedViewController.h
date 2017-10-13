@@ -10,4 +10,6 @@
 
 @interface SeedViewController : UIViewController
 
+@property (nonatomic, assign) int cid;
+
 @end

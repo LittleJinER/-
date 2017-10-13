@@ -10,4 +10,8 @@
 
 @interface SearchTechniqueVC : UIViewController
 
+
+@property (nonatomic, copy) NSString *text;
+
+
 @end

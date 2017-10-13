@@ -10,4 +10,11 @@
 
 @implementation CropsClassificationModel
 
+//
+//- (void)setValue:(id)value forKey:(NSString *)key{
+//    if ([key isEqualToString:@"id"]) {
+//        self.cid = value;
+//    }
+//}
+
 @end

@@ -10,4 +10,6 @@
 
 @interface FertilizerLClassCell : UITableViewCell
 
+@property (nonatomic, copy) NSString *title;
+
 @end

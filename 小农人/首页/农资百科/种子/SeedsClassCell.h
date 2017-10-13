@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LittleClassModel.h"
 
 @interface SeedsClassCell : UITableViewCell
+
+
+@property (nonatomic, strong) LittleClassModel *litModel;
+
 
 @end

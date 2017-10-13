@@ -15,6 +15,37 @@
     // Initialization code
 }
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+        UILabel *lab = [[UILabel alloc] init];
+        lab.text = @"我是来了啦啦啦";
+        lab.frame = CGRectMake(10, 10, 100, 20);
+        [self addSubview:lab];
+        
+    }
+    
+    
+    
+    return self;
+    
+    
+}
+
+
+
+//
+//comment_list Tom
+
+
+
+
+
+
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

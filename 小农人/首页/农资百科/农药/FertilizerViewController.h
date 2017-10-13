@@ -10,4 +10,6 @@
 
 @interface FertilizerViewController : UIViewController
 
+@property (nonatomic, assign) int cid;
+
 @end

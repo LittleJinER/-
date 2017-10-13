@@ -11,6 +11,7 @@
 @interface CollectionViewCell : UICollectionViewCell
 
 @property (nonatomic,strong) UIImageView * imgView;
+@property (nonatomic,strong) UIImageView * selectedView;
 @property (nonatomic,strong) UILabel * name;
 
 @end

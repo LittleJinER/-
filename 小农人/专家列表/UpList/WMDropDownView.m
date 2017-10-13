@@ -154,6 +154,7 @@ static Class _cellClass = nil;
     return [_cellClass cellHeight];
 }
 
+#pragma mark - 下拉列表的点击事件 -
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -165,6 +166,8 @@ static Class _cellClass = nil;
     if (_index != indexPath.row && self.block) {
         _index = indexPath.row;
         self.block(_titles[indexPath.row], indexPath.row);
+        
+        NSLog(@"%@ **** %ld",_titles[indexPath.row],(long)indexPath.row);
     }
     [self hideView];
 }

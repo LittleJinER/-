@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LNRTabbarController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    [self.window makeKeyAndVisible];
+    
+    LNRTabbarController *lnrTC = [[LNRTabbarController alloc] init];
+    
+    self.window.rootViewController = lnrTC;
+    
     return YES;
 }
 

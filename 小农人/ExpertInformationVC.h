@@ -10,4 +10,9 @@
 
 @interface ExpertInformationVC : UIViewController
 
+//@property (nonatomic, copy) NSString *expType;
+//@property (nonatomic, copy) NSString *skilledCrops;
+//@property (nonatomic, copy) NSString *conAddress;
+
+
 @end

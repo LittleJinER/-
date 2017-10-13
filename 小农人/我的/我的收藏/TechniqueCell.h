@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "myCollectModel.h"
+#import "QuestionModel.h"
 
 @interface TechniqueCell : UITableViewCell
+
+
+@property (nonatomic, strong) QuestionModel *myCollM;
+
 
 @end

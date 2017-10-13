@@ -10,4 +10,11 @@
 
 @interface AllCateItemCell : UICollectionViewCell
 
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, strong) UILabel *titleLab;
+
+@property (nonatomic, strong) UIView *lineView;
+
+
 @end

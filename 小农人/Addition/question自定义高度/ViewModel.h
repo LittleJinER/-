@@ -10,6 +10,7 @@
 @class RACCommand;
 @class Model;
 @class QuestionModel;
+@class UserDataModel;
 
 @interface ViewModel : NSObject
 
@@ -55,8 +56,11 @@
 
 @property (assign,nonatomic)CGRect headImageFrame;
 
+@property (assign,nonatomic)CGRect replyButtonFrame;
+
+
+
+
 - (void)setqueModel:(QuestionModel *)queModel;
-
-
 
 @end

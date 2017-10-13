@@ -8,10 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol LLSearchViewDelegate <NSObject>
+
+- (void)selectedCropClassificationWithCrop:(NSString *)cropStr;
+
+@end
+
+
+
 typedef void(^TapActionBlock)(NSString *str);
 @interface LLSearchView : UIView
 
 @property (nonatomic, copy) TapActionBlock tapAction;
+
+@property (nonatomic, assign) id<LLSearchViewDelegate> delegate;
+
 
 - (instancetype)initWithFrame:(CGRect)frame hotArray:(NSMutableArray *)hotArr historyArray:(NSMutableArray *)historyArr;
 

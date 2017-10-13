@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaiKeClassViewModel.h"
 
 @interface BaiKeMiniClassCell : UITableViewCell
+
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, strong) BaiKeClassViewModel *baiDVM;
 
 @end

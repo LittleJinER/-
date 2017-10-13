@@ -10,4 +10,8 @@
 
 @interface BaiKeMiniClassVC : UIViewController
 
+@property (nonatomic, assign) NSInteger aid;
+@property (nonatomic, copy) NSString *titleName;
+
+
 @end

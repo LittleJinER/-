@@ -10,4 +10,9 @@
 
 @interface TechniqueDetaModel : NSObject
 
+
+
+
+
+
 @end

@@ -7,6 +7,11 @@
 //
 
 #import "XFStepView.h"
+#define DISTANCE_HEIGHT  [UIScreen mainScreen].bounds.size.height/667.0
+#define DISTANCE_WIDTH   [UIScreen mainScreen].bounds.size.width/375.0
+
+
+
 
 @interface XFStepView()
 
@@ -26,11 +31,11 @@
 
 @implementation XFStepView
 
-- (instancetype)initWithFrame:(CGRect)frame Titles:(nonnull NSArray *)titles
+- (instancetype)initWithFrame:(CGRect)frame Titles:(nonnull NSArray *)titles WithNum:(int)num
 {
     if ([super initWithFrame:frame])
     {
-        _stepIndex = 2;
+        _stepIndex = num;
         
         _titles = titles;
         
@@ -47,7 +52,7 @@
             UILabel *lbl = [[UILabel alloc]init];
             lbl.text = title;
             lbl.textColor = [UIColor lightGrayColor];
-            lbl.font = [UIFont systemFontOfSize:14];
+            lbl.font = [UIFont systemFontOfSize:14*DISTANCE_HEIGHT];
             lbl.textAlignment = NSTextAlignmentCenter;
             [self addSubview:lbl];
             [self.titleLabels addObject:lbl];
@@ -57,9 +62,9 @@
 //            cricle.layer.cornerRadius = 13.f / 2;
 //            [self addSubview:cricle];
             
-            UIImageView *passedImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 13, 13)];
+            UIImageView *passedImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 13*DISTANCE_HEIGHT, 13*DISTANCE_HEIGHT)];
 //            passedImageV.image = [UIImage imageNamed:@""];
-            passedImageV.layer.cornerRadius = 13.0f/2;
+            passedImageV.layer.cornerRadius = 13.0f*DISTANCE_HEIGHT/2;
             passedImageV.backgroundColor = [UIColor lightGrayColor];
             [self addSubview:passedImageV];
             [self.cricleMarks addObject:passedImageV];
@@ -75,12 +80,12 @@
 //        _lblIndicator.layer.borderWidth = 1;
 //        _lblIndicator.layer.masksToBounds = YES;
         
-        _selectedImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 23, 23)] ;
+        _selectedImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 23*DISTANCE_HEIGHT, 23*DISTANCE_HEIGHT)] ;
         _selectedImageV.backgroundColor = [UIColor whiteColor];
         _selectedImageV.image = [UIImage imageNamed:@"Finder_point"];
-        _selectedImageV.layer.cornerRadius = 23.0f/2;
+        _selectedImageV.layer.cornerRadius = 23.0f*DISTANCE_HEIGHT/2;
         _selectedImageV.layer.borderColor = [TINTCOLOR CGColor];
-        _selectedImageV.layer.borderWidth = 1;
+        _selectedImageV.layer.borderWidth = 1*DISTANCE_HEIGHT;
         _selectedImageV.layer.masksToBounds = YES;
         [self addSubview:_selectedImageV];
         
@@ -98,7 +103,7 @@
     NSInteger perWidth = self.frame.size.width / self.titles.count;
     
 //    已过步骤的line的颜色
-    _lineUndo.frame = CGRectMake(0, 0, self.frame.size.width, 0.5);
+    _lineUndo.frame = CGRectMake(0, 0, self.frame.size.width, 0.5*DISTANCE_HEIGHT);
     _lineUndo.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 4);
     
     CGFloat startX = _lineUndo.frame.origin.x + perWidth/2;
@@ -156,7 +161,7 @@
         
 //        _lineDone.frame = CGRectMake(_lineUndo.frame.origin.x, _lineUndo.frame.origin.y, perWidth * _stepIndex+perWidth/2, _lineUndo.frame.size.height);
         
-        NSLog(@"gg  %@",_cricleMarks);
+//        NSLog(@"gg  %@",_cricleMarks);
         
         for (int i = 0; i < _titles.count; i++)
         {
@@ -169,16 +174,16 @@
                 {
 //                    cricle.backgroundColor = TINTCOLOR;
                     imageV.image = [UIImage imageNamed:@"login_btn_selected"];
-                    imageV.bounds = CGRectMake(0, 0, 18, 18);
-                    imageV.layer.cornerRadius = 9;
+                    imageV.bounds = CGRectMake(0, 0, 18*DISTANCE_HEIGHT, 18*DISTANCE_HEIGHT);
+                    imageV.layer.cornerRadius = 9*DISTANCE_HEIGHT;
                 }
                 else
                 {
 //                    cricle.backgroundColor = [UIColor lightGrayColor];
                     imageV.backgroundColor = [UIColor lightGrayColor];
                     imageV.image = [UIImage imageNamed:@""];
-                    imageV.bounds = CGRectMake(0, 0, 13.0f, 13.0f);
-                    imageV.layer.cornerRadius = 13.0f/2;
+                    imageV.bounds = CGRectMake(0, 0, 13.0f*DISTANCE_HEIGHT, 13.0f*DISTANCE_HEIGHT);
+                    imageV.layer.cornerRadius = 13.0f*DISTANCE_HEIGHT/2;
                 }
             }
             
@@ -187,7 +192,7 @@
             {
                 if (i <= stepIndex)
                 {
-                    lbl.textColor = TINTCOLOR;
+                    lbl.textColor = [UIColor blackColor];
                 }
                 else
                 {

@@ -10,4 +10,8 @@
 
 @interface SearchBarView : UIView
 
+@property (nonatomic, strong) UITextField *textField;
+
+@property (nonatomic, strong) UIView *bgView;
+
 @end

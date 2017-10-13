@@ -6,10 +6,10 @@
 //  Copyright © 2017年 王子翰. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface NSObject (Properity)
-
-+ (void) createProperityWithDictonary:(nonnull NSDictionary *)dictionary;
-
-@end
+//#import <Foundation/Foundation.h>
+//
+//@interface NSObject (Properity)
+//
+//+ (void) createProperityWithDictonary:(nonnull NSDictionary *)dictionary;
+//
+//@end

@@ -10,4 +10,8 @@
 
 @interface AttentionCropModel : NSObject
 
+@property (nonatomic, copy) NSString *weiba_name;//关注作物名字
+@property (nonatomic, assign) NSInteger weiba_id;//关注作物ID
+@property (nonatomic, copy) NSString *logo_url;//关注作物图像
+
 @end

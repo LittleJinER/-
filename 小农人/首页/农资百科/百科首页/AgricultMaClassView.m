@@ -7,6 +7,7 @@
 //
 
 #import "AgricultMaClassView.h"
+#import "UIImageView+WebCache.h"
 
 #define ViewWidth [[UIScreen mainScreen] bounds].size.width
 #define ViewHeight [[UIScreen mainScreen] bounds].size.height - 64 - MENU_HEIGHT - LINE_HEIGHT
@@ -20,7 +21,7 @@
 #define DE_RED_Color  [UIColor colorWithRed:252/255.0 green:86/255.0 blue:56/255.0 alpha:1]
 #define BG_COLOR [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]
 #define LIGHT_TITLE_COLOR [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1]
-
+#define CUSTOM_COLOR(a,b,c) [UIColor colorWithRed:a/255.0 green:b/255.0 blue:c/255.0 alpha:1]
 
 #define LINE_HEIGHT 0.5*DISTANCE_WIDTH
 
@@ -44,7 +45,10 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
+    
     if (self) {
+        
+        
         
         
         self.backgroundColor = [UIColor whiteColor];
@@ -76,7 +80,7 @@
         
         UILabel *detailLab = [[UILabel alloc] init];
         detailLab.frame = CGRectMake(width - 100*DISTANCE_WIDTH, heightSpace, 60*DISTANCE_WIDTH, 20*DISTANCE_HEIGHT);
-        detailLab.font = [UIFont systemFontOfSize:13*DISTANCE_HEIGHT];
+        detailLab.font = [UIFont systemFontOfSize:13*DISTANCE_WIDTH];
         detailLab.text = @"查看全部";
         detailLab.textColor = LIGHT_TITLE_COLOR;
         detailLab.textAlignment = NSTextAlignmentRight;
@@ -121,8 +125,8 @@
         
 //      nameLab
         UILabel *nameLab = [[UILabel alloc] init];
-        nameLab.frame = CGRectMake(CGRectGetMaxX(circleView.frame) + space, 1.3*space, width - 2.5*space, 2*space);
-        nameLab.font = [UIFont systemFontOfSize:16*DISTANCE_HEIGHT];
+        nameLab.frame = CGRectMake(CGRectGetMaxX(circleView.frame) + space, 1.25*space, width - 2.5*space, 2*space);
+        nameLab.font = [UIFont systemFontOfSize:16*DISTANCE_WIDTH];
         _nameLab = nameLab;
         [detailBgView addSubview:nameLab];
         
@@ -154,11 +158,30 @@
     
     _dict = dict;
     
+    NSArray *imgArr = @[@"BaikeHomeNY",@"BaikeHomeZZ",@"BaikeHomeFL"];
+    
+    _classLab.text = dict[@"cat_name"];
+    
+    NSString *textStr = dict[@"cat_name"];
+    if ([textStr isEqualToString:@"农药"]) {
+        _classLab.textColor = CUSTOM_COLOR(252, 86, 56);
+    }else if ([textStr isEqualToString:@"种子"]){
+        _classLab.textColor = CUSTOM_COLOR(91, 207, 85);
+    }else if ([textStr isEqualToString:@"种子"]){
+       _classLab.textColor = CUSTOM_COLOR(70, 161, 236);
+    }
+    
+    NSInteger teger = [dict[@"cat_id"] integerValue]- 1;
+    
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:dict[@"image"]] placeholderImage:[UIImage imageNamed:imgArr[teger]]];
+    
     
     NSDictionary *childDic = [NSDictionary dictionaryWithDictionary:dict[@"child"]];
 //    NSLog(@"wwww   :   %@",childDic);
     
     _nameLab.text = childDic[@"title"];
+    
+    _classLab.text = dict[@"cat_name"];
     
     NSArray *textArr = [self separateString:childDic[@"description"]] ;
     
@@ -166,12 +189,9 @@
         _textLab.text = [NSString stringWithFormat:@"%@",textArr[0]];
     }
     
-    
-    
     if (textArr.count >= 2) {
         _textLab.text = [NSString stringWithFormat:@"%@\n%@",textArr[0],textArr[1]];
     }
-    
     
 }
 
@@ -217,9 +237,6 @@
     
     return html;
 }
-
-
-
 
 
 

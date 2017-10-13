@@ -16,4 +16,68 @@
 
 #define KColor(r,g,b) [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0]
 
+//常规模式
+#define TOM_HOST @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@"
+
+//token值
+#define oauth_token @"af566a6210fd8465518f01016a17a69f"
+#define oauth_token_secret @"9e4eb830ad6fecb691de7beda2bcfcef"
+
+//请求域名
+#define TOM_CRAZY @"http://crazy.tomsung.cn/thinksns/%@"
+
+
+
+/*
+ *        首页页面  technique
+ */
+
+
+//首页搜索 技术   1 和    问题   0
+#define TOM_HOST_SEARCH_TEC_QUE @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&is_pestandweed=%d&key=%@"
+//技术列表信息    weiba_id 和 id
+#define TOM_HOST_TECHNIQUE_CROPID_DISEASEID @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&id=%d&weiba_id=%ld"
+
+#define TOM_HOST_TECHNIQUE_CROPID  @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&weiba_id=%ld"
+
+//首页搜索  搜索专家
+#define TOM_HOST_SEARCH_EXPERT @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&key=%@"
+
+
+//测试服务器 host api  百科首页(get)          百科子页面  农药  种子  肥料  （全部的详细分类）(post)
+#define C_HOST_API @"http://192.168.1.86/AgrMat_APP/api/v1%@"
+
+
+
+
+
+
+/*
+ *        问答页面
+ */
+//获取农作物大的类别
+#define TOM_HOST_CROP_NAME @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&keyword=%@"
+
+//获取所有的农作物种类
+#define TOM_HOST_CROP_CID @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&cid=%@"
+
+//关注或取消关注农作物    ---   技术详情
+#define TOM_HOST_CROP_ID @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&id=%d"
+
+//收藏问题
+#define TOM_HOST_USER_ID @"http://crazy.tomsung.cn/thinksns/index.php?app=%@&mod=%@&act=%@&oauth_token=%@&oauth_token_secret=%@&user_id=%ld"
+
+
+
+/*
+ *        发现页面
+ */
+
+
+
+/*
+ *        我的页面
+ */
+
+
 #endif /* LLSearchView_pch */

@@ -7,4 +7,4 @@
 //
 
 
-UIKIT_EXTERN NSString * const nKey;
+//UIKIT_EXTERN NSString * const nKey;

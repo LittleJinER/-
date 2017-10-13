@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "myCollectViewM.h"
+
 
 @interface myCollectTVCell : UITableViewCell
+
+@property (nonatomic, strong) myCollectViewM *myCollViewMod;
+
+
+@property (weak,nonatomic)UIButton *answerBtn;
 
 @end

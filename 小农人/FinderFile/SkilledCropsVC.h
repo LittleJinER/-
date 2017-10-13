@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CropsDetailSpeciesModel.h"
+
+@protocol SkilledCropsVCDelegate <NSObject>
+
+- (void)sendDataSource:(NSMutableArray *)dataSource;
+
+@end
 
 @interface SkilledCropsVC : UIViewController
+
+@property (nonatomic,assign) id <SkilledCropsVCDelegate>dataSourceDelegate;
+
 
 @end

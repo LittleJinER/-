@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "AgriViewModel.h"
+
 @interface AgriInfoCell : UITableViewCell
+
+
+@property (nonatomic, strong)AgriViewModel *agriViewModel;
 
 @end

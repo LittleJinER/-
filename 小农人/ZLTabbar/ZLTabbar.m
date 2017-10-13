@@ -36,7 +36,7 @@
     //TODO:去掉tabbar的分割线
     [self setBackgroundImage:[UIImage new]];
     [self setShadowImage:[UIImage new]];
-
+    
     self.irregularItem = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.irregularItem setBackgroundImage:[UIImage imageNamed:@"midBtn"] forState:UIControlStateNormal];
     [self.irregularItem setBackgroundImage:[UIImage imageNamed:@"midBtn"] forState:UIControlStateHighlighted];

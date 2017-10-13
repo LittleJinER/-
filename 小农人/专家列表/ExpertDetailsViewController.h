@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SABookModel.h"
 
 @interface ExpertDetailsViewController : UIViewController
+
+
+@property (nonatomic, strong) SABookModel *model;
+
+
 
 @end

@@ -11,6 +11,13 @@
 #import "FirstHttpRequestManager.h"
 #import "FaTextField.h"
 #import "AgricultMaClassView.h"
+#import "pesticideViewController.h"//农药页面
+#import "SeedViewController.h"//种子页面
+#import "FertilizerViewController.h"//肥料页面
+
+#import "AgricultMEncySearchVC.h"//搜索界面
+
+#import "FertilizerDetailViewController.h"//最小分类详情页面
 
 
 #define ViewWidth [[UIScreen mainScreen] bounds].size.width
@@ -39,7 +46,9 @@
 
 @property (nonatomic, strong) NSDictionary *readDic;
 @property (nonatomic, strong) NSDictionary *rootDic;
-
+@property (nonatomic, strong) FaTextField *textField;
+@property (nonatomic, assign) CGFloat navBarMaxH;
+@property (nonatomic, assign) int teger;
 
 @end
 
@@ -49,12 +58,13 @@
     self.tabBarController.tabBar.hidden = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated{
+    [_textField endEditing:YES];
     self.tabBarController.tabBar.hidden = NO;
 }
 
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -69,6 +79,12 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
+    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+    CGRect navBarRect = self.navigationController.navigationBar.frame;
+    
+    _navBarMaxH = statusRect.size.height + navBarRect.size.height;
+    
+    
     [self getAgriculturaMEncyData];
    
   
@@ -77,8 +93,10 @@
 }
 
 - (void)createSearchBarUI{
+    
+    
     //    设置搜索框
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(10*DISTANCE_WIDTH, 64+10*DISTANCE_HEIGHT, K_WIDTH - 20*DISTANCE_WIDTH, 30*DISTANCE_HEIGHT)];
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(10*DISTANCE_WIDTH, _navBarMaxH+10*DISTANCE_HEIGHT, K_WIDTH - 20*DISTANCE_WIDTH, 30*DISTANCE_HEIGHT)];
     
     
     //设置圆角效果
@@ -91,10 +109,12 @@
     [self.view addSubview:bgView];
     
     FaTextField *textField = [[FaTextField alloc] initWithFrame:CGRectMake(40*DISTANCE_WIDTH, 0, CGRectGetWidth(bgView.frame) - 120*DISTANCE_WIDTH, CGRectGetHeight(bgView.frame))];
-    textField.font = [UIFont systemFontOfSize:13];
+    textField.font = [UIFont systemFontOfSize:13*DISTANCE_WIDTH];
     
     //清除按钮
     textField.clearButtonMode =UITextFieldViewModeWhileEditing;
+    
+    _textField = textField;
     
     textField.delegate = self;
     //键盘属性
@@ -133,7 +153,7 @@
     CGFloat heightSpace = 12.5*DISTANCE_HEIGHT;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(space, 64 + 50*DISTANCE_HEIGHT, K_WIDTH - 2*space, K_HETGHT - (64 + 50*DISTANCE_HEIGHT));
+    scrollView.frame = CGRectMake(space, _navBarMaxH + 50*DISTANCE_HEIGHT, K_WIDTH - 2*space, K_HETGHT - (64 + 50*DISTANCE_HEIGHT));
     //    scrollView.backgroundColor = [UIColor whiteColor];
     scrollView.showsVerticalScrollIndicator = NO;
     
@@ -161,7 +181,7 @@
     dayLab.frame = CGRectMake(space, 0.8*space, CGRectGetWidth(headImg.frame) - 2*space, 1.5*space);
     dayLab.text = timeArr[1];
 //    dayLab.backgroundColor = [UIColor lightGrayColor];
-    dayLab.font = [UIFont systemFontOfSize:18*DISTANCE_HEIGHT weight:0.5*DISTANCE_HEIGHT];
+    dayLab.font = [UIFont systemFontOfSize:18*DISTANCE_WIDTH weight:0.5*DISTANCE_WIDTH];
     dayLab.textColor = [UIColor whiteColor];
     dayLab.textAlignment = NSTextAlignmentCenter;
     [headImg addSubview:dayLab];
@@ -176,14 +196,14 @@
     //      everyDLab
     UILabel *everyDLab = [[UILabel alloc] init];
     everyDLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame) + 1.5*space, 1.9*space, 250*DISTANCE_WIDTH, 20*DISTANCE_HEIGHT);
-    everyDLab.font = [UIFont systemFontOfSize:16*DISTANCE_HEIGHT];
+    everyDLab.font = [UIFont systemFontOfSize:16*DISTANCE_WIDTH];
     everyDLab.text = @"每日知识必读";
     [bgView addSubview:everyDLab];
     bgView.frame = CGRectMake(0, 0, width, CGRectGetMaxY(everyDLab.frame));
     //      dayRLab
     UILabel *dayRLab = [[UILabel alloc] init];
     dayRLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame) + 1.5*space, CGRectGetMaxY(everyDLab.frame) + space/2, 250*DISTANCE_WIDTH, 20*DISTANCE_HEIGHT);
-    dayRLab.font = [UIFont systemFontOfSize:13*DISTANCE_HEIGHT];
+    dayRLab.font = [UIFont systemFontOfSize:13*DISTANCE_WIDTH];
     dayRLab.textColor = LIGHT_TITLE_COLOR;
     dayRLab.text = @"学而无止境，每日一读";
     [bgView addSubview:dayRLab];
@@ -205,7 +225,7 @@
     //      nameLab
     UILabel *nameLab = [[UILabel alloc] init];
     nameLab.frame = CGRectMake(space, 1.3*space, width - 2*space, 2*space);
-    nameLab.font = [UIFont systemFontOfSize:16*DISTANCE_HEIGHT];
+    nameLab.font = [UIFont systemFontOfSize:16*DISTANCE_WIDTH];
     nameLab.text = self.readDic[@"title"];
     
     
@@ -213,8 +233,8 @@
     
     //        textLab
     UILabel *textLab = [[UILabel alloc] init];
-    textLab.frame = CGRectMake(space, CGRectGetMaxY(nameLab.frame) + space/2, width - 2*space, 140*DISTANCE_HEIGHT);
-    textLab.font = [UIFont systemFontOfSize:14*DISTANCE_HEIGHT];
+    
+    textLab.font = [UIFont systemFontOfSize:14*DISTANCE_WIDTH];
 
     textLab.numberOfLines = 0;
     NSString *readDescrip = self.readDic[@"description"];
@@ -224,6 +244,11 @@
 //    NSString *text = [self filterHTML:readModel.description];
     if (textArr.count >= 2) {
         textLab.text = [NSString stringWithFormat:@"%@\n%@",textArr[0],textArr[1]];
+        
+        CGRect textRect = [textLab.text boundingRectWithSize:CGSizeMake(width - 2*space, 500) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14*DISTANCE_WIDTH]} context:nil];
+        
+        textLab.frame = CGRectMake(space, CGRectGetMaxY(nameLab.frame) + space/2, width - 2*space, textRect.size.height);
+        
     }
     
 
@@ -234,9 +259,9 @@
     
     UILabel *detailLab = [[UILabel alloc] init];
     detailLab.frame = CGRectMake(width - 100*DISTANCE_WIDTH, CGRectGetMaxY(textLab.frame) + heightSpace, 60*DISTANCE_WIDTH, 20*DISTANCE_HEIGHT);
-    detailLab.font = [UIFont systemFontOfSize:13*DISTANCE_HEIGHT];
+    detailLab.font = [UIFont systemFontOfSize:13*DISTANCE_WIDTH];
     detailLab.text = @"查看详情";
-    detailLab.textColor = LIGHT_TITLE_COLOR;
+//    detailLab.textColor = LIGHT_TITLE_COLOR;
     detailLab.textAlignment = NSTextAlignmentRight;
     [detailBgView addSubview:detailLab];
     
@@ -268,41 +293,47 @@
     
     CGFloat contentHeight = 0.0;
     
-    NSArray *imgArr = @[@"BaikeHomeNY",@"BaikeHomeZZ",@"BaikeHomeFL"];
-    NSArray *classArr = @[@"农药",@"种子",@"化肥"];
-    NSArray *dicName = @[@"fertilizer",@"pesticide",@"seed"];
+//    NSArray *imgArr = @[@"BaikeHomeNY",@"BaikeHomeZZ",@"BaikeHomeFL"];
+//    NSArray *classArr = @[@"农药",@"种子",@"肥料"];
+    NSArray *dicName = @[@"pesticide",@"seed",@"fertilizer"];
     
     for (int i = 0 ; i < 3; i ++) {
         
         AgricultMaClassView *classView = [[AgricultMaClassView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(detailBgView.frame) + space + (classViewHeight + space)*i, scrollView.frame.size.width, classViewHeight)];
-        classView.headImg.image = [UIImage imageNamed:imgArr[i]];
-        classView.classLab.text = classArr[i];
+//        classView.headImg.image = [UIImage imageNamed:imgArr[i]];
+//        classView.classLab.text = classArr[i];
 //        classView.backgroundColor = [UIColor greenColor];
         [scrollView addSubview:classView];
         
-        switch (i) {
-            case 0:
-            {
-                classView.classLab.textColor = CUSTOM_COLOR(252, 86, 56);
-            }
-                break;
-                
-            case 1:
-            {
-                classView.classLab.textColor = CUSTOM_COLOR(91, 207, 85);
-            }
-                break;
-                
-            case 2:
-            {
-                classView.classLab.textColor = CUSTOM_COLOR(70, 161, 236);
-                contentHeight = CGRectGetMaxY(classView.frame);
-            }
-                break;
-                
-            default:
-                break;
+        if (i == 2) {
+            contentHeight = CGRectGetMaxY(classView.frame);
         }
+        
+//        switch (i) {
+//            case 0:
+//            {
+//                classView.classLab.textColor = CUSTOM_COLOR(252, 86, 56);
+//                
+//                
+//            }
+//                break;
+//                
+//            case 1:
+//            {
+//                classView.classLab.textColor = CUSTOM_COLOR(91, 207, 85);
+//            }
+//                break;
+//                
+//            case 2:
+//            {
+//                classView.classLab.textColor = CUSTOM_COLOR(70, 161, 236);
+//
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
 //        classView.textLab.text = @"ddfdfdfdfdffff";
         
         
@@ -333,6 +364,15 @@
 - (void)readingDetailBgViewClick:(UITapGestureRecognizer *)recognizer{
     
     NSLog(@"查看详情");
+    FertilizerDetailViewController *ferDeVC = [[FertilizerDetailViewController alloc] init];
+
+//    NSDictionary *childDic = [NSDictionary dictionaryWithDictionary:self.readDic[@"reading"]];
+    ferDeVC.aid = [self.readDic[@"article_id"] integerValue];
+    ferDeVC.titleName = self.readDic[@"title"];
+
+    [self.navigationController pushViewController:ferDeVC animated:YES];
+    
+    
     
 }
 
@@ -340,22 +380,34 @@
 - (void)detailBgViewClick:(UITapGestureRecognizer *)recognizer{
     
     NSInteger teger = recognizer.view.tag;
+     FertilizerDetailViewController *ferDeVC = [[FertilizerDetailViewController alloc] init];
+    
+    NSDictionary*littleDic;
+    
     switch (teger) {
         case 1000:
         {
-            NSLog(@"1000");
+//            NSLog(@"1000");
+            
+//        ferDeVC
+            littleDic = [NSDictionary dictionaryWithDictionary:self.rootDic[@"pesticide"]];
+           
         }
             break;
             
         case 1001:
         {
-            NSLog(@"1001");
+//            NSLog(@"1001");
+            littleDic = [NSDictionary dictionaryWithDictionary:self.rootDic[@"seed"]];
+           
         }
             break;
             
         case 1002:
         {
-            NSLog(@"1002");
+//            NSLog(@"1002");
+            littleDic = [NSDictionary dictionaryWithDictionary:self.rootDic[@"fertilizer"]];
+           
         }
             break;
             
@@ -363,30 +415,53 @@
             break;
     }
     
+    NSDictionary *childDic = [NSDictionary dictionaryWithDictionary:littleDic[@"child"]];
+    ferDeVC.colorID = [littleDic[@"cat_id"] integerValue] + 99;
+    ferDeVC.aid = [childDic[@"article_id"] integerValue];
+    ferDeVC.titleName = childDic[@"title"];
     
-    
+    [self.navigationController pushViewController:ferDeVC animated:YES];
     
 }
 
 #pragma mark  -  allBgViewClick的点击方法  -- 分类的查看全部
 - (void)allBgViewClick:(UITapGestureRecognizer *)recognizer{
     NSInteger teger = recognizer.view.tag;
+   
+    NSArray *dicName = @[@"pesticide",@"seed",@"fertilizer"];
+    NSDictionary *classDic = self.rootDic[dicName[teger - 2000]];
+    
     switch (teger) {
         case 2000:
         {
             NSLog(@"2000");
+            pesticideViewController *pesticideVC = [[pesticideViewController alloc] init];
+            pesticideVC.cid = [classDic[@"cat_id"] intValue];
+            
+            
+            [self.navigationController pushViewController:pesticideVC animated:YES];
+
         }
             break;
             
         case 2001:
         {
             NSLog(@"2001");
+            SeedViewController *seedVC = [[SeedViewController alloc] init];
+            seedVC.cid = [classDic[@"cat_id"] intValue];
+            [self.navigationController pushViewController:seedVC animated:YES];
+            
+
         }
             break;
             
         case 2002:
         {
             NSLog(@"2002");
+            FertilizerViewController *fertilizerVC =  [[FertilizerViewController alloc] init];
+            fertilizerVC.cid = [classDic[@"cat_id"] intValue];
+            [self.navigationController pushViewController:fertilizerVC animated:YES];
+
         }
             break;
             
@@ -440,6 +515,10 @@
         weakSelf.readDic = [NSDictionary dictionaryWithDictionary:array[0]];
 //        [weakSelf.rootArr addObjectsFromArray:array[1]];
         weakSelf.rootDic = [NSDictionary dictionaryWithDictionary:array[1]];
+        
+        
+        
+        
         [self createSearchBarUI];
         [self createScrollViewUI];
     }];
@@ -532,6 +611,19 @@
 //    NSLog(@"html:   %@",html);
     
     return html;
+}
+
+
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    NSLog(@"ddd");
+    AgricultMEncySearchVC *searchVC = [[AgricultMEncySearchVC alloc] init];
+    
+    [self.navigationController pushViewController:searchVC animated:YES];
+    
+    
 }
 
 

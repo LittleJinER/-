@@ -18,7 +18,34 @@
 
 @property (nonatomic,assign) NSInteger  count;
 
+//年龄
+@property (nonatomic, assign) NSInteger age;
+//头像
+@property (nonatomic, copy) NSString *avatar_tiny; //30 * 30
+@property (nonatomic, copy) NSString *avatar_small;//50 * 50
+@property (nonatomic, copy) NSString *avatar_original;
+@property (nonatomic, copy) NSString *avatar_middle;//100 * 100
+@property (nonatomic, copy) NSString *avatar_big;  //200 * 200
+//位置
+@property (nonatomic, copy)NSString *location;
+//性别
+@property (nonatomic, assign)NSInteger sex;
+//擅长类别
+@property (nonatomic, strong)NSMutableArray *tag;
+//专家名字
+@property (nonatomic, copy)NSString *uname;
+//粉丝数
+@property (nonatomic, assign)NSInteger following_count;
+//被采纳数
+@property (nonatomic, assign)NSInteger adopt_count;
+
+@property (nonatomic, copy)NSString *official_category;
 
 
+@property (nonatomic, assign)NSInteger Following;
+
+
+
+@property (nonatomic, assign)NSInteger uid;
 
 @end

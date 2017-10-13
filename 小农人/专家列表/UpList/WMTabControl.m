@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UIImageView *titleIconView;
 @property (nonatomic, strong) UIView *lineView;
 
+
+
 - (void)setSelected:(BOOL)selected;
 - (void)resetTitle:(NSString *)title;
 
@@ -20,10 +22,14 @@
 
 @implementation WMTabControlItem
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title WithNum:num
 {
+    
+    
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
+        
+//        NSLog(@"%f",self.bounds.size.width);
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.font = [UIFont systemFontOfSize:kTextFont];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -36,12 +42,40 @@
             frame.size.width = CGRectGetWidth(self.bounds) - kIconSpace - 10;
             _titleLabel.frame = frame;
         }
-        _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
+        
+//        _titleLabel.backgroundColor = [UIColor blueColor];
+//        _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
+         _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
         [self addSubview:_titleLabel];
 
-        CGFloat x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
-        _titleIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH)];
-        [_titleIconView setImage:kIconNomal];
+//        self.backgroundColor = [UIColor redColor];
+        CGFloat iconHeight;
+        CGFloat iconWidth;
+        UIImage *iconImage;
+        if ([num integerValue] == 0) {
+            iconImage = [UIImage imageNamed:@"home_expert_Sequence"];
+            iconHeight = iconImage.size.height;
+            iconWidth = iconImage.size.width;
+        }else{
+            iconImage = [UIImage imageNamed:@"home_expert_type"];
+            iconHeight = iconImage.size.height;
+            iconWidth = iconImage.size.width;
+        }
+        
+        
+      
+//        NSLog(@"fffffff   %f   %f",iconWidth,iconHeight);
+        CGFloat x = CGRectGetMinX(_titleLabel.frame) - kIconSpace - iconWidth;
+        
+//        NSLog(@"fffffff   %f   %f     %f",iconWidth,iconHeight,x);
+//        NSLog(@"%f ----  %f",x,CGRectGetMinX(_titleLabel.frame));
+        
+        
+         _titleIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, (CGRectGetHeight(self.bounds) - iconHeight) * 0.5, iconWidth, iconHeight)];
+        
+//        _titleIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH)];
+//        [_titleIconView setImage:kIconNomal];
+        [_titleIconView setImage:iconImage];
         [self addSubview:_titleIconView];
 
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kVerticalLineSpace,
@@ -49,6 +83,7 @@
         _lineView.backgroundColor = kHLineColor;
         [self addSubview:_lineView];
     }
+    
     return self;
 }
 
@@ -65,10 +100,20 @@
         frame.size.width = CGRectGetWidth(self.bounds) - kIconSpace - 10;
         _titleLabel.frame = frame;
     }
-    _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
+    _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) + kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
 
-    CGFloat x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
-    _titleIconView.frame = CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH);
+    
+    UIImage *iconImage = [UIImage imageNamed:@"home_expert_type"];
+    CGFloat iconHeight = iconImage.size.height;
+    CGFloat iconWidth = iconImage.size.width;
+    
+    
+//    CGFloat x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
+//    _titleIconView.frame = CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH);
+
+    
+    CGFloat x = CGRectGetMinX(_titleLabel.frame) - kIconSpace - 21;
+        _titleIconView.frame = CGRectMake(x, (CGRectGetHeight(self.bounds) - iconHeight) * 0.5, iconWidth, iconHeight);
 
     _lineView.frame = CGRectMake(0, kVerticalLineSpace, 0.5, CGRectGetHeight(self.bounds) - kVerticalLineSpace * 2);
 }
@@ -78,7 +123,13 @@
 - (void)setSelected:(BOOL)selected
 {
     [_titleLabel setTextColor:(selected ? kLineColor : kTextColor)];
-    [_titleIconView setImage:(selected ? kIconSelect : kIconNomal)];
+//    [_titleIconView setImage:(selected ? kIconSelect : kIconNomal)];
+    
+//    [_titleIconView setImage:[UIImage imageNamed:@"home_expert_type"]];
+    
+    
+    
+    
 }
 
 - (void)resetTitle:(NSString *)title
@@ -93,7 +144,9 @@
     _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
 
     CGRect frame = _titleIconView.frame;
-    frame.origin.x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
+//    frame.origin.x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
+    
+    frame.origin.x = CGRectGetMinX(_titleLabel.frame) - kIconSpace - 21;
     _titleIconView.frame = frame;
 }
 
@@ -199,8 +252,11 @@
         NSString *title = titleArray[i];
         if ([title isKindOfClass:[NSDictionary class]] || [title isKindOfClass:[NSMutableDictionary class]]) {
             title = [titleArray[i] objectForKey:@"left"];
+            
         }
-        WMTabControlItem *item = [[WMTabControlItem alloc] initWithFrame:rect title:title];
+        NSNumber *num = @(i);
+        
+        WMTabControlItem *item = [[WMTabControlItem alloc] initWithFrame:rect title:title  WithNum:num];
         [_itemViews addObject:item];
         [_contentView addSubview:item];
         item.lineView.hidden = i > 0 ? FALSE : TRUE;

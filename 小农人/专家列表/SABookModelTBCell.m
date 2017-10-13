@@ -8,6 +8,7 @@
 
 #import "SABookModelTBCell.h"
 #import "SABookModel.h"
+#import "UIImageView+WebCache.h"
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -71,7 +72,7 @@
         [self addSubview:_classificationLab];
 
         _detailedClassificationLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_nameLabel.frame), CGRectGetMaxY(_classificationLab.frame) + 10, WIDTH - CGRectGetMinX(_nameLabel.frame) , 20)];
-        _detailedClassificationLab.text = @"茄子，辣椒，大白菜，甘蓝，西蓝花，紫甘蓝";
+        
         _detailedClassificationLab.textColor = [UIColor colorWithRed:152.0/255 green:152.0/255 blue:152.0/255 alpha:1];
         _detailedClassificationLab.font = [UIFont systemFontOfSize:13.0f];
         [self addSubview:_detailedClassificationLab];
@@ -91,21 +92,14 @@
         
 //        _questionBtn.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:231.0/255 green:86.0/255 blue:71.0/255 alpha:1]);
 
-        
-        
-        
         _questionBtn.layer.borderWidth = 1.0f;
         [self addSubview:_questionBtn];
         
         
     }
     
-    
-    
     return self;
 }
-
-
 
 
 
@@ -113,8 +107,21 @@
     _bookModel = bookModel;
     
     self.iconImg.image = [UIImage imageNamed:bookModel.icon];
-    self.nameLabel.text = bookModel.name;
-    self.classificationLab.text = [NSString stringWithFormat:@"¥%@",bookModel.price];
+    
+    [self.iconImg sd_setImageWithURL:[NSURL URLWithString:bookModel.avatar_middle] placeholderImage:[UIImage imageNamed:@""]];
+    
+    self.nameLabel.text = bookModel.uname;
+
+//    NSMutableString *crops = [[NSMutableString alloc] init];
+
+//    for (NSString *str  in bookModel.tag) {
+//        [crops stringByAppendingString:str];
+//    }
+    
+    NSString *crops = [bookModel.tag componentsJoinedByString:@","];
+    NSLog(@"tttttttt %@",bookModel.tag);
+    self.detailedClassificationLab.text = crops;
+//    self.classificationLab.text = [NSString stringWithFormat:@"¥%@",bookModel.tag];
     // 根据count决定countLabel显示文字
 //    self.countLabel.text = [NSString stringWithFormat:@"%ld",self.bookModel.count];
     // 根据count决定减号按钮是否能够被点击（如果不写这一行代码，会出现cell复用)

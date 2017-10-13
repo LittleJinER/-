@@ -7,6 +7,11 @@
 //
 
 #import "TestViewController.h"
+#import <WebKit/WebKit.h>
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+#define BGVIEW_COLOR     [UIColor colorWithRed:249.0/255 green:249.0/255 blue:249.0/255 alpha:1]
 
 @interface TestViewController ()
 
@@ -14,9 +19,45 @@
 
 @implementation TestViewController
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.tabBarController.tabBar.hidden = YES;
+    //    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    
+    self.tabBarController.tabBar.hidden = NO;
+    //    self.navigationController.navigationBar.backgroundColor = nil;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    self.title = @"农业资讯详情";
+    self.tabBarController.tabBar.hidden = YES;
+    
+    self.navigationController.navigationBar.backgroundColor = BGVIEW_COLOR;
+    
+    
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.86/AgrMat_APP/api/v1/index.php"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [webView loadRequest:request];
+    
+    [self.view addSubview:webView];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

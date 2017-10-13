@@ -16,7 +16,7 @@
 
 @property (nonatomic, assign)int stepIndex;
 
-- (instancetype _Nonnull )initWithFrame:(CGRect)frame Titles:(nonnull NSArray *)titles;
+- (instancetype _Nonnull )initWithFrame:(CGRect)frame Titles:(nonnull NSArray *)titles WithNum:(int)num;
 
 - (void)setStepIndex:(int)stepIndex Animation:(BOOL)animation;
 

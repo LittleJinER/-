@@ -10,4 +10,15 @@
 
 @implementation BigClassModel
 
++ (NSDictionary *)mj_objectClassInArray{
+    
+    return @{
+             
+             @"child" : @"LittleClassModel"
+             
+             };
+    
+
+}
+
 @end

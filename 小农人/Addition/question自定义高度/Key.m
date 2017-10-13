@@ -6,4 +6,4 @@
 //  Copyright © 2017年 王子翰. All rights reserved.
 //
 
-NSString * const nKey = @"9e266b6c34bb326e62b043815e5ee4e4";
+//NSString * const nKey = @"9e266b6c34bb326e62b043815e5ee4e4";

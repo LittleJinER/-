@@ -7,9 +7,10 @@
 //
 
 #import "ImageCollCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface ImageCollCell()
-@property (nonatomic, strong) UIImageView *headImage;
+//@property (nonatomic, strong) UIImageView *headImage;
 
 @end
 
@@ -28,6 +29,10 @@
 
 - (void)creatArr:(NSArray *)creatArr indexRow:(int)indexRow{
     self.headImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",creatArr[indexRow]]];
+    
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:creatArr[indexRow]] placeholderImage:[UIImage imageNamed:@""]];
+    
+    
 }
 
 

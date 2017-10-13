@@ -16,6 +16,7 @@
 @property (nonatomic, strong)NSString *group_icon;
 @property (nonatomic, strong)NSString *location;//地理位置
 @property (nonatomic, strong)NSString *uname; //用户名字
+@property (nonatomic, copy)NSString *realname;//用户名字
 
 @property (nonatomic, strong)NSArray *tag;
 

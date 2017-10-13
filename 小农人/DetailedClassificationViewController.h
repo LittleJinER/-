@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataSource.h"
+
+@protocol DetailCategoryDelegate <NSObject>
+
+- (void)sendDataSource:(NSMutableArray <DataSource *> *)dataSource;
+
+@end
+
 
 @interface DetailedClassificationViewController : UIViewController
+
+
+@property (nonatomic,assign) id <DetailCategoryDelegate>dataSourceDelegate;
+
+
 
 @end

@@ -14,9 +14,31 @@
 
 @implementation MyInfomationViewController
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.tabBarController.tabBar.hidden = YES;
+    //    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    
+    self.tabBarController.tabBar.hidden = NO;
+    //    self.navigationController.navigationBar.backgroundColor = nil;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title = @"我的消息";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

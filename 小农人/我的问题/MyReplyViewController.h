@@ -7,7 +7,14 @@
 //
 
 #import "MLShowViewController.h"
+#import "QuestionModel.h"
+
 
 @interface MyReplyViewController : MLShowViewController
+
+@property (nonatomic, strong)QuestionModel *model;
+
+
+
 
 @end

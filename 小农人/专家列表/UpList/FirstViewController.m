@@ -9,11 +9,16 @@
 #import "FirstViewController.h"
 #import "WMTabControl.h"
 #import "WMDropDownView.h"
-
-
+#import "Q_AHttpRequestManager.h"
 #import "SABookModel.h"
 #import "MJExtension.h"
 #import "SABookModelTBCell.h"
+#import "ExpertCategoryModel.h"
+#import "ExpertDetailsViewController.h"
+#import "TBRefresh.h"
+#import "MakeData.h"
+#import "LLSearchView.pch"
+
 
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width
@@ -41,43 +46,181 @@
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
+@property (strong, nonatomic) NSMutableArray *categoryArr;
+
 @end
 
 @implementation FirstViewController
+
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+//    self.navigationController.navigationBar.backgroundColor = [];
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = nil;
+//    self.tabControl = nil;
+//    [self.tabControl removeFromSuperview];
+//    _tabControl = nil;
+     self.navigationController.navigationBar.barTintColor = nil;
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [UIImage new];
+
+    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.tabControl.frame = CGRectMake(0, 64, WIDTH, 40);
+//    CGFloat height = self.tabControl.frame.size.height;
+    [self.view addSubview:_tabControl];
+//    NSLog(@"111111111   %f",height);
+    
+//     __weak typeof(self) weakSelf = self;
+//    if (_one.count > 0) {
+////        _tabControl;
+////        [self.view addSubview:_tabControl];
+//    }
+    
+   self.tabBarController.tabBar.hidden = YES;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     // 1.设置数据和初始索引
-    self.view.backgroundColor = [UIColor whiteColor];
+//    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    self.navigationItem.leftBarButtonItems = @[negativeSpacer];
     
+    self.tabBarController.tabBar.hidden = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
     _tabControl = [[WMTabControl alloc]init];
+    _tabControl.backgroundColor = [UIColor whiteColor];
     _tabControl.frame = CGRectMake(0, 64, WIDTH, 40);
     [self.view addSubview:_tabControl];
+
     
     [self createTableView];
+    
     [self createSearchBar];
     
-    _one = [NSMutableArray arrayWithObjects:@"全部", @"金", @"木", @"水", @"火", nil];
-    _two = [NSMutableArray arrayWithObjects:@"区域", @"东", @"南", @"西", @"北", nil];
-//    _three = [NSMutableArray arrayWithObjects:@"薪资", @"10000", @"20000", @"30000", @"40000", @"110000", @"120000", @"130000", @"140000", nil];
-    _total = @[_one, _two];
-    _totalIndex = [NSMutableArray arrayWithObjects:@0, @0, nil];
-    __weak typeof(self) weakSelf = self;
-    [_tabControl setItemsWithTitleArray:@[_one[0], _two[0]]
-                          selectedBlock:^(NSInteger index) {
-        [weakSelf openList:index];
-                              
-    }];
-//    15*disten;
+    [self getExpertCategoryData];
+    
+    [self getExpertListData];
+    
 }
 
+
+- (NSMutableArray *)one{
+    
+    if (!_one) {
+        _one = [NSMutableArray array];
+    }
+    return _one;
+    
+}
+
+
+#pragma mark - 获取专家类别信息
+- (void)getExpertCategoryData{
+    
+    CGFloat height = _tabControl.frame.size.height;
+    NSLog(@"222222222%f",height);
+//    _one = [NSMutableArray array];
+//    _one = [NSMutableArray arrayWithObjects:@"全部", @"金", @"木", @"水", @"火", nil];
+    _two = [NSMutableArray arrayWithObjects:@"区域", @"东", @"南", @"西", @"北", nil];
+ 
+    _categoryArr = [NSMutableArray array];
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *str = [NSString stringWithFormat:TOM_HOST,@"api",@"Weiba",@"get_all_user_cate",oauth_token,oauth_token_secret];
+    NSString *encode = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    
+//    NSString *urlStr = @"http://192.168.1.86/thinksns_v3.0/index.php?app=api&mod=Weiba&act=get_all_user_cate&oauth_token=988b491a22040ef7634eb5b8f52e0986&oauth_token_secret=2a3d67f5f7bb03035e619518b364912e";
+    
+    [Q_AHttpRequestManager getExpertCategoryInfoWithUrl:encode WithBlock:^(NSArray * _Nullable array) {
+        
+        [_categoryArr addObjectsFromArray:array];
+       
+        
+//        [MakeData makeData:^(NSArray *array) {
+        
+        [weakSelf.one addObject:@"专家类型"];
+       
+        for (ExpertCategoryModel *obj  in _categoryArr) {
+            [_one addObject:obj.title];
+      
+        }
+
+        _total = @[_one, _two];
+        _totalIndex = [NSMutableArray arrayWithObjects:@0, @0, nil];
+        
+        [_tabControl setItemsWithTitleArray:@[_one[0], _two[0]]
+                                      selectedBlock:^(NSInteger index) {
+                                          [weakSelf openList:index];
+                                      }
+         ];
+    
+//        }];
+        
+        
+        
+        
+    }];
+        
+    
+}
+
+
+- (void)getExpertListData{
+    CGFloat height = _tabControl.frame.size.height;
+    NSLog(@"3333333333333%f",height);
+    _dataArr = [NSMutableArray array];
+    
+    
+    NSString *str = [NSString stringWithFormat:TOM_HOST,@"api",@"Weiba",@"get_all_user",oauth_token,oauth_token_secret];
+    NSString *encode = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+//    NSString *urlStr = @"http://192.168.1.86/thinksns_v3.0/index.php?app=api&mod=Weiba&act=get_all_user&oauth_token=988b491a22040ef7634eb5b8f52e0986&oauth_token_secret=2a3d67f5f7bb03035e619518b364912e";
+    [Q_AHttpRequestManager getExpertListInfoWithUrl:encode WithBlock:^(NSArray * _Nullable array) {
+        
+        if (array.count == 0) {
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"数据中断，请重新登录" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alert show];
+            [self performSelector:@selector(dismiss:) withObject:alert afterDelay:1.0];
+            
+            
+            
+        }else{
+            
+            [_dataArr addObjectsFromArray:array];
+            [_tableView reloadData];
+            
+        }
+        
+        
+       
+        
+    }];
+    
+    
+}
+
+- (void)dismiss:(UIAlertView *)alert{
+    //    [alert dismissViewControllerAnimated:YES completion:nil];
+    [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex] animated:YES];
+}
+
+
+
 - (void)createSearchBar{
-    
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
     
     
     UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(5, 7, self.view.frame.size.width-125, 30)];
@@ -137,12 +280,11 @@
 }
 
 
-
-
 - (void)openList:(NSInteger)column
 {
     // 3.下拉菜单的处理
     WMDropDownView *listView = (WMDropDownView *)[self.view viewWithTag:9898];
+    
     if (!listView) {
         // 3.1 显示下拉菜单
         _segIndex = column;
@@ -158,6 +300,7 @@
                                            titles:lists
                                      defaultIndex:[_totalIndex[column] integerValue]
                                     selectedBlock:^(id title, NSInteger index) {
+                                         NSLog(@"%@ -----+++++++++--- %ld",title,(long)index);
             [weakSelf changeIndex:index withColumn:column];
         }];
         listView.tag = 9898;
@@ -191,14 +334,38 @@
     // 4.2 改变对应的记录索引
     [_totalIndex replaceObjectAtIndex:column withObject:[NSNumber numberWithInteger:index]];
 
-    NSLog(@"   ****   %ld *****  %ld",(long)column,(long)index);
+//    NSLog(@"   ****   %ld *****  %ld",(long)column,(long)index);
     // 4.3 改变分段条的对应项标题，如果不想改变则不执行这条
     [_tabControl setTitle:_total[column][index] withIndex:column];
 
-    NSLog(@"*****    %@   *******",_total[column][index]);
+//    NSLog(@"*****    %@   *******",_total[column][index]);
     
     // 4.4 按选择改变内容排序
     [self changeOrder];
+    
+    
+    NSString *urlStr;
+    
+//   if (column != -1) {
+    
+        _dataArr = nil;
+        _dataArr = [NSMutableArray array];
+        if (column == 0) {
+            urlStr = @"http://192.168.1.86/thinksns_v3.0/index.php?app=api&mod=Weiba&act=get_all_user&oauth_token=988b491a22040ef7634eb5b8f52e0986&oauth_token_secret=2a3d67f5f7bb03035e619518b364912e";
+        }else{
+            urlStr = [NSString stringWithFormat:@"http://192.168.1.86/thinksns_v3.0/index.php?app=api&mod=Weiba&act=get_all_user&oauth_token=988b491a22040ef7634eb5b8f52e0986&oauth_token_secret=2a3d67f5f7bb03035e619518b364912e&id=%ld",(long)column];
+        }
+        
+        [Q_AHttpRequestManager getExpertListInfoWithUrl:urlStr WithBlock:^(NSArray * _Nullable array) {
+            
+            [_dataArr addObjectsFromArray:array];
+            [_tableView reloadData];
+            
+        }];
+        
+//    }
+    
+    
 }
 
 - (void)changeOrder
@@ -206,44 +373,68 @@
 }
 
 
-#pragma mark - SABookCellDelegate
-
-
-- (IBAction)didClickClearButton {
-    
-    for (SABookModel * bookModel in self.dataArr) {
-        
-        bookModel.count = 0;
-        
-    }
-    
-    [self.tableView reloadData];
-    
-}
-
-- (IBAction)didClickBuyButton {
-    for (SABookModel * bookModel in self.dataArr ) {
-        if (bookModel.count) {
-            NSLog(@"购买了%ld本{%@}",bookModel.count,bookModel.name);
-        }
-    }
-    
-    
-}
-
 
 - (void)createTableView{
     
     CGFloat tabHeight = CGRectGetMaxY(_tabControl.frame);
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  tabHeight, WIDTH, HEIGHT - tabHeight) style:UITableViewStylePlain];
+    NSLog(@"table的初始高度  %f",tabHeight);
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  40, WIDTH, HEIGHT - tabHeight) style:UITableViewStylePlain];
+//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  104, WIDTH, HEIGHT - 104) style:UITableViewStylePlain];
+    
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
     [_tableView registerClass:[SABookModelTBCell class] forCellReuseIdentifier:@"bookCell"];
    
     [self.view addSubview:_tableView];
+    
+    
+    
 
+    __weak FirstViewController *weakself = self;
+    [_tableView addRefreshHeaderWithBlock:^{
+        [weakself LoadUpdateDatas];
+    }];
+    
+    [_tableView addRefreshFootWithBlock:^{
+        [weakself LoadMoreDatas];
+    }];
+    
+    
+    
 }
+
+
+
+#pragma mark-加载数据    刷新方法
+
+-(void)LoadUpdateDatas
+{
+    
+    //
+    
+    // 模拟延时设置
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView.header endHeadRefresh];
+        
+    });
+    
+    
+    
+}
+
+-(void)LoadMoreDatas
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView.footer NoMoreData];
+        [self.tableView.footer ResetNomoreData];
+    });
+    
+}
+
 
 
 
@@ -252,6 +443,9 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    
+    
+    NSLog(@"ffff     %ld",self.dataArr.count);
     return self.dataArr.count;
 }
 
@@ -286,17 +480,28 @@
     
 }
 
+#pragma mark - uitableview  -  delegate方法
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    SABookModel *model = self.dataArr[indexPath.row];
+    ExpertDetailsViewController *expertDVC = [[ExpertDetailsViewController alloc] init];
+    expertDVC.model = model;
+    [self.navigationController pushViewController:expertDVC animated:YES];
+    
+}
+
 
 
 #pragma mark - 懒加载
-- (NSMutableArray *)dataArr{
-    if (!_dataArr) {
-        
-        _dataArr = [SABookModel mj_objectArrayWithFilename:@"books.plist"];
-        
-    }
-    return _dataArr;
-}
+//- (NSMutableArray *)dataArr{
+//    if (!_dataArr) {
+//        
+//        _dataArr = [SABookModel mj_objectArrayWithFilename:@"books.plist"];
+//        
+//    }
+//    return _dataArr;
+//}
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{

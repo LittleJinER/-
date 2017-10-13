@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QuestionModel.h"
+
 
 @interface TechniqueDetailVC : UIViewController
+
+
+@property (nonatomic, strong) QuestionModel *qsModel;
+
+
+
+
 
 @end

@@ -6,11 +6,25 @@
 //  Copyright © 2017年 王龙龙. All rights reserved.
 //
 
+
+#define KScreenWidth   [UIScreen mainScreen].bounds.size.width
+#define KScreenHeight  [UIScreen mainScreen].bounds.size.height
+
+#define KHistorySearchPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"PYSearchhistories.plist"]
+
+#define KColor(r,g,b) [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0]
+
+
+
+
 #import "LLSearchView.h"
+
+#import "Q_AppointedCropViewControllerViewController.h"
+
 
 @interface LLSearchView ()
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *hotArray;
 @property (nonatomic, strong) NSMutableArray *historyArray;
 @property (nonatomic, strong) UIView *searchHistoryView;
@@ -39,14 +53,14 @@
     return _hotSearchView;
 }
 
-
+#pragma mark - 设置搜索历史页面 -
 - (UIView *)searchHistoryView
 {
     if (!_searchHistoryView) {
         if (_historyArray.count > 0) {
-            self.searchHistoryView = [self setViewWithOriginY:0 title:@"最近搜索" textArr:self.historyArray];
+            _searchHistoryView = [self setViewWithOriginY:0 title:@"最近搜索" textArr:self.historyArray];
         } else {
-            self.searchHistoryView = [self setNoHistoryView];
+            _searchHistoryView = [self setNoHistoryView];
         }
     }
     return _searchHistoryView;
@@ -57,6 +71,8 @@
 - (UIView *)setViewWithOriginY:(CGFloat)riginY title:(NSString *)title textArr:(NSMutableArray *)textArr
 {
     UIView *view = [[UIView alloc] init];
+    
+    
     UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, KScreenWidth - 30 - 45, 30)];
     titleL.text = title;
     titleL.font = [UIFont systemFontOfSize:15];
@@ -85,6 +101,8 @@
             y += 40;
             letfWidth = 15;
         }
+        
+        
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(letfWidth, y, width, 30)];
         label.userInteractionEnabled = YES;
         label.font = [UIFont systemFontOfSize:12];
@@ -92,6 +110,18 @@
         label.layer.borderWidth = 0.5;
         label.layer.cornerRadius = 5;
         label.textAlignment = NSTextAlignmentCenter;
+        label.tag = 10000 + i;
+        
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [btn setFrame:CGRectMake(letfWidth, y, width, 30)];
+//        [btn setTitle:text forState:UIControlStateNormal];
+//        btn.layer.cornerRadius = 5;
+//        btn.clipsToBounds = YES;
+//        [view addSubview:btn];
+//        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        btn.tag = 10000 + i;
+        
+        
         if (i % 2 == 0 && [title isEqualToString:@"热门搜索"]) {
             label.layer.borderColor = KColor(255, 148, 153).CGColor;
             label.textColor = KColor(255, 148, 153);
@@ -106,6 +136,15 @@
     view.frame = CGRectMake(0, riginY, KScreenWidth, y + 40);
     return view;
 }
+
+
+//- (void)btnClick:(UIButton *)sender{
+//    
+//    
+//    NSLog(@" dianjil   e     %@",self.historyArray[sender.tag - 10000]);
+//}
+
+
 
 
 - (UIView *)setNoHistoryView
@@ -133,7 +172,24 @@
     if (self.tapAction) {
         self.tapAction(label.text);
     }
+    
+    NSString *cropStr;
+    if (label.tag - 10000 > 1) {
+        cropStr = self.hotArray[label.tag - 10000];
+//        NSLog(@" dfdfdfdfd     %@",self.hotArray[label.tag - 10000]);
+    }else{
+    
+        cropStr = self.historyArray[label.tag - 10000];
+//    NSLog(@" dfdfdfdfd     %@",self.historyArray[label.tag - 10000]);
+    
+        [self.delegate selectedCropClassificationWithCrop:cropStr];
+    
+    }
+    
 }
+
+
+
 
 - (CGFloat)getWidthWithStr:(NSString *)text
 {

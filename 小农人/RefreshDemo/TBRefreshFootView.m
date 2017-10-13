@@ -184,7 +184,7 @@ typedef enum {
         
         [UIView animateWithDuration:0.5 animations:^{
       
-            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top - footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
+//            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top - footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
         }];
         
         if (self.ReturnBlock) {
@@ -212,7 +212,7 @@ typedef enum {
         self.hidden = YES;
         [UIView animateWithDuration:0.5 animations:^{
             
-            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top + footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
+//            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top + footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
         }];
         
     }
@@ -230,7 +230,7 @@ typedef enum {
         
         [UIView animateWithDuration:0.5 animations:^{
             
-            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top + footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
+//            self.superScrollview.contentInset = UIEdgeInsetsMake(self.superScrollview.contentInset.top + footerRefreshHeight, self.superScrollview.contentInset.left, footerRefreshHeight, self.superScrollview.contentInset.right);
         }];
 
     }

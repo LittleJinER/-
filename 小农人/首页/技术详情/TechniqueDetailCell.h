@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TechniqueDetaModel.h"
+
 
 @interface TechniqueDetailCell : UITableViewCell
+
+@property (nonatomic, strong) TechniqueDetaModel *tdModel;
+
+
 
 @end

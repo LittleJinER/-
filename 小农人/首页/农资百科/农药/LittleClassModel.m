@@ -10,4 +10,16 @@
 
 @implementation LittleClassModel
 
++ (NSDictionary *)mj_objectClassInArray{
+    
+    return @{
+             
+             @"child" : @"MiniClassModel"
+             
+             };
+    
+    
+}
+
+
 @end

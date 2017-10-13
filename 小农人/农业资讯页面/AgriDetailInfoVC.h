@@ -10,4 +10,7 @@
 
 @interface AgriDetailInfoVC : UIViewController
 
+@property (nonatomic, copy)NSString *html;
+
+
 @end

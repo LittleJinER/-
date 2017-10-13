@@ -7,7 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "AgriInfoModel.h"
 
 @interface AgriViewModel : NSObject
+
+
+@property (nonatomic, strong)AgriInfoModel *agriModel;
+
+@property (nonatomic, assign)CGRect titleLFrame;
+
+@property (nonatomic, assign)CGRect imgV0Frame;
+@property (nonatomic, assign)CGRect imgV1Frame;
+@property (nonatomic, assign)CGRect imgV2Frame;
+
+@property (nonatomic, assign)CGRect signLFrame;
+
+@property (nonatomic, assign)CGRect timeLFrame;
+
+
+@property (nonatomic, assign)CGFloat cellHeight;
+
+
 
 @end

@@ -288,6 +288,7 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-16, width+10) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     if (self.collectionSuperView) {
         [self.collectionSuperView addSubview:self.collectionView];

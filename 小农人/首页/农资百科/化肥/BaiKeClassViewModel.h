@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "BaiKeMiniClassModel.h"
+
 
 @interface BaiKeClassViewModel : NSObject
+
+@property (nonatomic, strong) BaiKeMiniClassModel *baiKDModel;
+@property (nonatomic, assign) CGFloat cellHeight;
+
+@property (nonatomic, assign) CGRect textLabFrame;
 
 @end

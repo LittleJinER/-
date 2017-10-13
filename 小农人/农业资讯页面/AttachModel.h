@@ -10,4 +10,9 @@
 
 @interface AttachModel : NSObject
 
+
+@property (nonatomic, copy) NSString *attach_url;
+@property (nonatomic, copy) NSString *extension;
+
+
 @end

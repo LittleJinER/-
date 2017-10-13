@@ -10,4 +10,7 @@
 
 @interface SearchQuestionVC : UIViewController
 
+@property (nonatomic, copy) NSString *text;
+
+
 @end

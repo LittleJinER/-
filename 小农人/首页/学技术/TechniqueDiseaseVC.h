@@ -10,4 +10,9 @@
 
 @interface TechniqueDiseaseVC : UIViewController
 
+@property (nonatomic, assign) NSInteger weiba_id;
+@property (nonatomic, copy) NSString *weiba_name;
+@property (nonatomic, assign) int disease_id;
+@property (nonatomic, copy) NSString *diseaseName;
+
 @end
